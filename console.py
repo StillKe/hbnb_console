@@ -5,8 +5,8 @@ from commands.eof_command import EOFCommand
 from commands.help_command import HelpCommand
 
 class HBNBCommand(cmd.Cmd):
-    prompt = '(hbnb) '
-    
+    prompt = '(hbnb) '  # Set the prompt text
+
     def __init__(self):
         super().__init__()
         self.commands = {
@@ -14,13 +14,13 @@ class HBNBCommand(cmd.Cmd):
             'EOF': EOFCommand(),
             'help': HelpCommand(self)
         }
-    
+
     def default(self, line):
         cmd, arg, line = self.parseline(line)
         if cmd in self.commands:
             result = self.commands[cmd].execute(arg)
             if result:
-                return result
+                return True
         else:
             print(f"*** Unknown syntax: {line}")
 
@@ -39,9 +39,4 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     hbnb_cmd = HBNBCommand()
-    if sys.stdin.isatty():
-        # Interactive mode
-        hbnb_cmd.cmdloop()
-    else:
-        # Non-interactive mode
-        hbnb_cmd.cmdloop(stdin=sys.stdin)
+    hbnb_cmd.cmdloop()  # Start the command loop
