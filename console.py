@@ -28,10 +28,20 @@ class HBNBCommand(cmd.Cmd):
         'Do nothing on empty input line'
         pass
 
+    def do_quit(self, arg):
+        'Quit command to exit the program'
+        return True
+
+    def do_EOF(self, arg):
+        'EOF command to exit the program'
+        print()
+        return True
+
 if __name__ == '__main__':
+    hbnb_cmd = HBNBCommand()
     if sys.stdin.isatty():
         # Interactive mode
-        HBNBCommand().cmdloop()
+        hbnb_cmd.cmdloop()
     else:
         # Non-interactive mode
-        HBNBCommand().onecmd(sys.stdin.read())
+        hbnb_cmd.cmdloop(stdin=sys.stdin)
